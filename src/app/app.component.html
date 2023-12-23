@@ -1,0 +1,135 @@
+<nav class="navbar navbar-expand-lg navbar-white myNav">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <img src="assets/booklogo.png" alt="" class="d-inline-block align-text-top" height="70px" width="150px">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" *ngIf="loggedDetails?.role =='Event Planner'">
+                    <a class="nav-link active" routerLink="/New-Event">Create Event</a>
+                </li>
+                <li class="nav-item" *ngIf="loggedDetails?.role =='Event Planner'">
+                    <a class="nav-link active" routerLink="/Event-List">Events</a>
+                </li>
+                <!-- <li class="nav-item" *ngIf="loggedDetails?.role =='Customer'"> -->
+                <li class="nav-item" >
+                    <a class="nav-link active" routerLink="/My-Bookings">My Bookings</a>
+                </li>
+            </ul>
+            <form class="d-flex" *ngIf="!loggedDetails">
+                <button class="btn btn-outline-primary round-button mx-2" type="button"
+                    (click)="openLoginModal()">Login</button>
+                <button class="btn btn-success round-button" type="button">Register</button>
+            </form>
+            <form class="d-flex" *ngIf="loggedDetails">
+                <strong>Hello {{loggedDetails.name}} </strong>
+                &nbsp;&nbsp;
+                <button class="btn btn-secondary" (click)="logOut()">LogOut</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!-- Login=Modal -->
+<div class="modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" (click)="closeLoginModal()" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" *ngIf="islogform">
+                    <h1 class="modal-title fs-5" id="loginModalLabel">Login</h1>
+                    <div class="container">
+                        <div class="row mt-2 mb-2">
+                            <div class="col-12">
+                                <label for="">ContactNo</label>
+                                <input type="number" class="form-control" name="ContactNo" id="ContactNo"
+                                    [(ngModel)]="loginObj.ContactNo">
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-12">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" name="Password" id="Password"
+                                    [(ngModel)]="loginObj.Password">
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary" (click)="onLogin()">Login</button>
+                                <p>Don't Have an account
+                                    <strong><a href="" (click)="islogform=false">
+                                            Sign Up here
+                                        </a>
+                                    </strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form action="" *ngIf="!islogform">
+                    <h1 class="modal-title fs-5" id="loginModalLabel">Register</h1>
+                    <div class="container">
+                        <div class="row mt-2 mb-2">
+                            <div class="col-12">
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" name="Name" id="Name"
+                                    [(ngModel)]="registerObj.Name">
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-12">
+                                <label for="">Email</label>
+                                <input type="email" class="form-control" name="Email" id="Email"
+                                    [(ngModel)]="registerObj.Email">
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-12">
+                                <label for="">ContactNo</label>
+                                <input type="number" class="form-control" name="ContactNo" id="ContactNo"
+                                    [(ngModel)]="registerObj.ContactNo">
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-12">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" name="Password" id="Password"
+                                    [(ngModel)]="registerObj.Password">
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-12">
+                                <select name="Role" id="Role" class="form-control" [(ngModel)]="registerObj.Role">
+                                    <option value="">Select Role</option>
+                                    <option value="Event Planner">Event Planner</option>
+                                    <option value="Customer">Customer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2 ">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary" (click)="onRegister()">Register</button>
+                                <p>Already Have an account
+                                    <strong>
+                                        <a href="" (click)="islogform =true">
+                                            Login here
+                                        </a>
+                                    </strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
